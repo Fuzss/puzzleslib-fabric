@@ -149,7 +149,7 @@ curseforge {
 		addGameVersion project.findProperty('projectLoader')
 		project.findProperty('curseProjectVersion').replaceAll(" ", "").split(",").each { version -> addGameVersion version }
 		mainArtifact remapJar
-		addArtifact remapSourcesJar
+		addArtifact sourcesJar
 		relations {
 			requiredDependency 'fabric-api'
 			requiredDependency 'forge-config-api-port-fabric'
