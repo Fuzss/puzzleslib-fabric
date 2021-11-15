@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "${modId}",
+  "version": "${modVersion}",
+
+  "name": "${modName}",
+  "description": "${modDescription}",
+  "authors": [
+    "${modAuthor}"
+  ],
+  "contact": {
+    "homepage": "${modPageUrl}",
+    "issues": "${modIssueUrl}",
+    "sources": "${modSourceUrl}"
+  },
+
+  "license": "Mozilla Public License 2.0",
+  "icon": "mod_logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "${mainEntryPoint}"
+    ],
+    "client": [
+    ]
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "fabricloader": ">=${minFabricVersion}",
+    "fabric": ">=${minFabricApiVersion}",
+    "forgeconfigapiport": "*",
+    "minecraft": ">=${minMinecraftVersion} <${nextMinecraftVersion}",
+    "java": ">=16"
+  },
+
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
+  }
+}
