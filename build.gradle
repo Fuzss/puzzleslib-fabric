@@ -36,13 +36,6 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}"
 	modImplementation "net.minecraftforge:ForgeConfigAPIPort:v2.0.0-1.17.1-Fabric"
 	modImplementation "com.terraformersmc:modmenu:2.0.12"
-//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-lifecycle-events-v1", project.fabricApiVersion)
-//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-networking-api-v1", project.fabricApiVersion)
-//	include "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}", fabricApi.module("fabric-command-api-v1", project.fabricApiVersion)
-//	implementation 'com.electronwill.night-config:core:3.6.3'
-//	implementation 'com.electronwill.night-config:toml:3.6.3'
-//	include 'com.electronwill.night-config:core:3.6.3'
-//	include 'com.electronwill.night-config:toml:3.6.3'
 }
 
 processResources {
@@ -124,8 +117,7 @@ ext.jarAttributes = [
 		"Implementation-Vendor"     : project.modauthor.toLowerCase(),
 		"Implementation-Vendor-Id"  : project.group,
 		"Implementation-URL"        : "${modPageUrl}",
-		"Implementation-Timestamp"  : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-		"MixinConfigs"              : "META-INF/${project.modid}.mixins.json"
+		"Implementation-Timestamp"  : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
 
 tasks.withType(Jar).configureEach {
@@ -160,7 +152,7 @@ curseforge {
 		addArtifact remapSourcesJar
 		relations {
 			requiredDependency 'fabric-api'
-//			requiredDependency 'puzzles-lib'
+//			requiredDependency 'puzzles-lib-fabric'
 		}
 	}
 	options {
