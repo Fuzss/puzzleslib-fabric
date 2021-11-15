@@ -152,6 +152,7 @@ curseforge {
 		addArtifact remapSourcesJar
 		relations {
 			requiredDependency 'fabric-api'
+			requiredDependency 'forge-config-api-port-fabric'
 //			requiredDependency 'puzzles-lib-fabric'
 		}
 	}
