@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog].
 
+## [v2.0.2-1.17.1] - 2021-12-05
+### Added
+- Added utility classes for working with json files
+### Fixed
+- Fixed an issue where configs wouldn't load very often on start-up
+
 ## [v2.0.1-1.17.1] - 2021-11-22
 - Added ModelLayerRegistry for creating ModelLayerLocation's with a specific namespace
 
