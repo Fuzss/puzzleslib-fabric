@@ -34,7 +34,7 @@ dependencies {
 
 	modImplementation "net.fabricmc:fabric-loader:${project.fabricVersion}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}"
-	modImplementation "net.minecraftforge:ForgeConfigAPIPort:v3.0.0-1.18-Fabric"
+	modImplementation "net.minecraftforge:ForgeConfigAPIPort:v3.1.0-1.18.1-Fabric"
 	modImplementation "com.terraformersmc:modmenu:3.0.0"
 }
 
