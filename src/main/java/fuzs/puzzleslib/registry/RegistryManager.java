@@ -23,6 +23,7 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -52,7 +53,7 @@ public class RegistryManager {
     /**
      * register any type of registry entry with a path
      * @param registry type for this registry entry
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> registry type
@@ -65,7 +66,7 @@ public class RegistryManager {
 
     /**
      * register block entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -75,7 +76,7 @@ public class RegistryManager {
 
     /**
      * register block entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @param creativeTab creative tab for item
      * @return registry object for <code>entry</code> block
@@ -86,7 +87,7 @@ public class RegistryManager {
 
     /**
      * register block entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @param properties properties for item, should include tab
      * @return registry object for <code>entry</code> block
@@ -100,7 +101,7 @@ public class RegistryManager {
 
     /**
      * register fluid entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -110,7 +111,18 @@ public class RegistryManager {
 
     /**
      * register item entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
+     * @param entry function for entry to register
+     * @param creativeTab creative tab for item
+     * @return registry object for <code>entry</code>
+     */
+    public Item registerItem(String path, Function<Item.Properties, Item> entry, CreativeModeTab creativeTab) {
+        return this.registerItem(path, () -> entry.apply(new Item.Properties().tab(creativeTab)));
+    }
+
+    /**
+     * register item entry with a path
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -120,7 +132,7 @@ public class RegistryManager {
 
     /**
      * register block entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param creativeTab creative tab for item
      * @return registry object for <code>entry</code>
      */
@@ -130,7 +142,7 @@ public class RegistryManager {
 
     /**
      * register block entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param properties properties for item, should include tab
      * @return registry object for <code>entry</code>
      */
@@ -144,7 +156,7 @@ public class RegistryManager {
 
     /**
      * register mob effect entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -154,7 +166,16 @@ public class RegistryManager {
 
     /**
      * register sound event entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
+     * @return registry object for <code>entry</code>
+     */
+    public SoundEvent registerRawSoundEvent(String path) {
+        return this.registerSoundEvent(path, () -> new SoundEvent(this.locate(path)));
+    }
+
+    /**
+     * register sound event entry with a path
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -164,7 +185,7 @@ public class RegistryManager {
 
     /**
      * register potion entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -174,7 +195,7 @@ public class RegistryManager {
 
     /**
      * register enchantment entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      */
@@ -184,7 +205,7 @@ public class RegistryManager {
 
     /**
      * register entity type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> entity type type
@@ -195,7 +216,7 @@ public class RegistryManager {
 
     /**
      * register entity type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> entity type type
@@ -206,7 +227,7 @@ public class RegistryManager {
 
     /**
      * register tile entity type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> block entity type
@@ -217,7 +238,7 @@ public class RegistryManager {
 
     /**
      * register tile entity type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> block entity type
@@ -228,7 +249,7 @@ public class RegistryManager {
 
     /**
      * register container type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> container menu type
@@ -241,7 +262,7 @@ public class RegistryManager {
 
     /**
      * register container type entry with a path
-     * @param path optional path for new entry
+     * @param path path for new entry
      * @param entry supplier for entry to register
      * @return registry object for <code>entry</code>
      * @param <T> container menu type
