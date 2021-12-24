@@ -26,6 +26,7 @@
     ]
   },
   "mixins": [
+    "META-INF/${modId}.mixins.json"
   ],
 
   "depends": {

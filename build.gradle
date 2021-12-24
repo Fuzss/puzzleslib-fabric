@@ -38,6 +38,10 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:3.0.0"
 }
 
+minecraft {
+	refmapName "META-INF/${project.modid}.refmap.json"
+}
+
 processResources {
 	duplicatesStrategy DuplicatesStrategy.INCLUDE
 
