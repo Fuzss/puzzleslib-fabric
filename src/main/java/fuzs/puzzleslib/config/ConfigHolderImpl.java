@@ -7,6 +7,7 @@ import net.minecraftforge.api.ModLoadingContext;
 import net.minecraftforge.api.fml.event.config.ModConfigEvent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -107,34 +108,36 @@ public class ConfigHolderImpl<C extends AbstractConfig, S extends AbstractConfig
      * @param modId mod id to register for
      */
     private void registerConfigs(String modId) {
+        // add config reload callback first as it's called when initially loading configs
         if (this.client != null) {
-            // can't use a lambda expression for a functional interface, if the method in the functional interface has type parameters
-            final ConfigCallback saveCallback = new ConfigCallback() {
-                @Override
-                public <T> void accept(ForgeConfigSpec.ConfigValue<T> entry, Consumer<T> save) {
-                    ConfigHolderImpl.this.addSaveCallback(ModConfig.Type.CLIENT, entry, save);
-                }
-            };
-            if (this.clientFileName.isEmpty()) {
-                ModLoadingContext.registerConfig(modId, ModConfig.Type.CLIENT, this.buildSpec(this.client, saveCallback));
-            } else {
-                ModLoadingContext.registerConfig(modId, ModConfig.Type.CLIENT, this.buildSpec(this.client, saveCallback), this.clientFileName);
-            }
             this.addClientCallback(this.client::afterConfigReload);
+            this.registerConfig(modId, ModConfig.Type.CLIENT, this.client, this.clientFileName);
         }
         if (this.server != null) {
-            final ConfigCallback saveCallback = new ConfigCallback() {
-                @Override
-                public <T> void accept(ForgeConfigSpec.ConfigValue<T> entry, Consumer<T> save) {
-                    ConfigHolderImpl.this.addSaveCallback(ModConfig.Type.SERVER, entry, save);
-                }
-            };
-            if (this.serverFileName.isEmpty()) {
-                ModLoadingContext.registerConfig(modId, ModConfig.Type.SERVER, this.buildSpec(this.server, saveCallback));
-            } else {
-                ModLoadingContext.registerConfig(modId, ModConfig.Type.SERVER, this.buildSpec(this.server, saveCallback), this.serverFileName);
-            }
             this.addServerCallback(this.server::afterConfigReload);
+            this.registerConfig(modId, ModConfig.Type.SERVER, this.server, this.serverFileName);
+        }
+    }
+
+    /**
+     * register config and reloading callbacks
+     * @param modId mod if to register for
+     * @param type client or server config type
+     * @param config the config object
+     * @param fileName file name, might be empty, will use default name then
+     */
+    private void registerConfig(String modId, ModConfig.Type type, AbstractConfig config, String fileName) {
+        // can't use a lambda expression for a functional interface, if the method in the functional interface has type parameters
+        final ConfigCallback saveCallback = new ConfigCallback() {
+            @Override
+            public <T> void accept(ForgeConfigSpec.ConfigValue<T> entry, Consumer<T> save) {
+                ConfigHolderImpl.this.addSaveCallback(type, entry, save);
+            }
+        };
+        if (StringUtils.isEmpty(fileName)) {
+            ModLoadingContext.registerConfig(modId, type, this.buildSpec(config, saveCallback));
+        } else {
+            ModLoadingContext.registerConfig(modId, type, this.buildSpec(config, saveCallback), fileName);
         }
     }
 
