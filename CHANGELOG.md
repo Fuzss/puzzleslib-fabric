@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog].
 
+## [v2.0.3-1.17.1] - 2021-12-28
+### Fixed
+- Fixed an ordering issue when loading configs
+
 ## [v2.0.2-1.17.1] - 2021-12-05
 ### Added
 - Added utility classes for working with json files
