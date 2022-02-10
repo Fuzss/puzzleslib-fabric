@@ -1,6 +1,7 @@
 package fuzs.puzzleslib.registry;
 
 import com.google.common.collect.Maps;
+import fuzs.puzzleslib.PuzzlesLib;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.core.Registry;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -276,7 +278,7 @@ public class RegistryManager {
      * @return resource location for {@link #namespace}
      */
     private ResourceLocation locate(String path) {
-        if (path.isEmpty()) throw new IllegalArgumentException("Can't register object without name");
+        if (StringUtils.isEmpty(path)) throw new IllegalArgumentException("Can't register object without name");
         return new ResourceLocation(this.namespace, path);
     }
 
@@ -286,6 +288,9 @@ public class RegistryManager {
      * @return new mod specific registry manager
      */
     public static RegistryManager of(String namespace) {
-        return MOD_TO_REGISTRY.computeIfAbsent(namespace, RegistryManager::new);
+        return MOD_TO_REGISTRY.computeIfAbsent(namespace, namespace1 -> {
+            PuzzlesLib.LOGGER.info("creating registry manager for mod {}", namespace);
+            return new RegistryManager(namespace1);
+        });
     }
 }
