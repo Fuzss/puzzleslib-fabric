@@ -289,7 +289,7 @@ public class RegistryManager {
      */
     public static RegistryManager of(String namespace) {
         return MOD_TO_REGISTRY.computeIfAbsent(namespace, namespace1 -> {
-            PuzzlesLib.LOGGER.info("creating registry manager for mod {}", namespace);
+            PuzzlesLib.LOGGER.info("Creating registry manager for mod id {}", namespace);
             return new RegistryManager(namespace1);
         });
     }
