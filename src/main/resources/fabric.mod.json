@@ -23,6 +23,9 @@
       "${mainEntryPoint}"
     ],
     "client": [
+    ],
+    "cardinal-components": [
+      "${capabilityController}"
     ]
   },
   "mixins": [
@@ -34,7 +37,9 @@
     "fabric": ">=${minFabricApiVersion}",
     "forgeconfigapiport": "*",
     "minecraft": ">=${minMinecraftVersion} <${nextMinecraftVersion}",
-    "java": ">=16"
+    "java": ">=17",
+    "cardinal-components-base": "*",
+    "cardinal-components-entity": "*"
   },
 
   "custom": {

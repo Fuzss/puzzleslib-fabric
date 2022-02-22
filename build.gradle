@@ -21,11 +21,13 @@ ext.nextmcversion = getNextVersion("${minMinecraftVersion}")
 //ext.puzzlesversion = "${puzzlesVersion.substring(1, puzzlesVersion.indexOf("-"))}"
 ext.mainentrypoint = "${project.group}".concat(".${rootProject.name}")
 ext.cliententrypoint = "${project.group}".concat(".client.${rootProject.name}Client")
+ext.capabilitycontroller = "${project.group}".concat(".capability.CapabilityController")
 
 repositories {
 	mavenLocal()
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://cursemaven.com" }
+	maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' }
 }
 
 dependencies {
@@ -36,6 +38,16 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricApiVersion}"
 	modImplementation "net.minecraftforge:ForgeConfigAPIPort:v3.1.0-1.18.1-Fabric"
 	modImplementation "com.terraformersmc:modmenu:3.0.0"
+
+	// only entity module is used, and we'll probably only ever need that single one
+	// but just in case all the others can easily be enabled (the code for supporting them is also there)
+	// also since those are included better keep jar size small
+	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:4.1.3"))
+//	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-item:4.1.3"))
+	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:4.1.3"))
+//	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-block:4.1.3"))
+//	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:4.1.3"))
+//	modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-world:4.1.3"))
 }
 
 minecraft {
@@ -63,25 +75,27 @@ processResources {
     inputs.property "packFormat", 				"${packFormat}"
 	inputs.property "mainEntryPoint", 			project.mainentrypoint
 	inputs.property "clientEntryPoint", 		project.cliententrypoint
+	inputs.property "capabilityController", 	project.capabilitycontroller
 
 	filesMatching ('fabric.mod.json') {
         expand (
-                'modId':                project.modid,
-                'modName':              "${modName}",
-                'modVersion':           project.modversion,
-                'modGroup':             project.group,
-                'modPageUrl':           "${modPageUrl}",
-                'modIssueUrl':          "${modIssueUrl}",
-				'modSourceUrl':         "${modSourceUrl}",
-                'modAuthor':            project.modauthor,
-				'modDescription':       "${modDescription}",
-                'minFabricVersion':     "${minFabricVersion}",
-				'minFabricApiVersion':  "${minFabricApiVersion}",
-                'minMinecraftVersion':  "${minMinecraftVersion}",
-                "nextMinecraftVersion": project.nextmcversion,
-//				"minPuzzlesVersion":    "${minPuzzlesVersion}",
-				"mainEntryPoint": 		project.mainentrypoint,
-				"clientEntryPoint": 	project.cliententrypoint
+                'modId':                	project.modid,
+                'modName':              	"${modName}",
+                'modVersion':           	project.modversion,
+                'modGroup':             	project.group,
+                'modPageUrl':           	"${modPageUrl}",
+                'modIssueUrl':          	"${modIssueUrl}",
+				'modSourceUrl':         	"${modSourceUrl}",
+                'modAuthor':            	project.modauthor,
+				'modDescription':       	"${modDescription}",
+                'minFabricVersion':     	"${minFabricVersion}",
+				'minFabricApiVersion':  	"${minFabricApiVersion}",
+                'minMinecraftVersion':  	"${minMinecraftVersion}",
+                "nextMinecraftVersion": 	project.nextmcversion,
+//				"minPuzzlesVersion":    	"${minPuzzlesVersion}",
+				"mainEntryPoint": 			project.mainentrypoint,
+				"clientEntryPoint": 		project.cliententrypoint,
+				"capabilityController": 	project.capabilitycontroller
         )
     }
 
@@ -157,6 +171,7 @@ curseforge {
 			requiredDependency 'fabric-api'
 			requiredDependency 'forge-config-api-port-fabric'
 //			requiredDependency 'puzzles-lib-fabric'
+			embeddedLibrary 'cardinal-components'
 		}
 	}
 	options {
