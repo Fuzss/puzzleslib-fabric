@@ -23,7 +23,7 @@ public class ServerProxy implements IProxy {
     private MinecraftServer gameServer;
 
     /**
-     * registers for game server starting and stopping so we can keep an instance of the server here so that
+     * registers for game server starting and stopping, so we can keep an instance of the server here so that
      * {@link fuzs.puzzleslib.network.NetworkHandler} can be implemented much more similarly to Forge
      */
     public ServerProxy() {
@@ -57,5 +57,20 @@ public class ServerProxy implements IProxy {
             Message message = factory.apply(buf);
             server.execute(() -> message.handle(player, server));
         });
+    }
+
+    @Override
+    public boolean hasControlDown() {
+        return false;
+    }
+
+    @Override
+    public boolean hasShiftDown() {
+        return false;
+    }
+
+    @Override
+    public boolean hasAltDown() {
+        return false;
     }
 }

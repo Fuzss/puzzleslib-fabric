@@ -47,4 +47,22 @@ public interface IProxy {
      * @param factory message factory when received
      */
     void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, Message> factory);
+
+    /**
+     * useful for item tooltips
+     * @return is the control key (command on mac) pressed
+     */
+    boolean hasControlDown();
+
+    /**
+     * useful for item tooltips
+     * @return is the shift key pressed
+     */
+    boolean hasShiftDown();
+
+    /**
+     * useful for item tooltips
+     * @return is the alt key pressed
+     */
+    boolean hasAltDown();
 }

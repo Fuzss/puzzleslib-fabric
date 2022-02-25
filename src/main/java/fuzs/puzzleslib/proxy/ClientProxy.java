@@ -4,6 +4,7 @@ import fuzs.puzzleslib.network.message.Message;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -31,5 +32,20 @@ public class ClientProxy extends ServerProxy {
             Message message = factory.apply(buf);
             client.execute(() -> message.handle(client.player, client));
         });
+    }
+
+    @Override
+    public boolean hasControlDown() {
+        return Screen.hasControlDown();
+    }
+
+    @Override
+    public boolean hasShiftDown() {
+        return Screen.hasShiftDown();
+    }
+
+    @Override
+    public boolean hasAltDown() {
+        return Screen.hasAltDown();
     }
 }
