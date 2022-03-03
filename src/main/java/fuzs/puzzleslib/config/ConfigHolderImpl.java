@@ -98,13 +98,13 @@ public class ConfigHolderImpl<C extends AbstractConfig, S extends AbstractConfig
                 case CLIENT -> {
                     this.clientConfigValueCallbacks.forEach(Runnable::run);
                     // call this before running callbacks, so they may use the config already
-                    this.makeClientAvailable();
+                    this.makeClientAvailable(config);
                     this.clientCallbacks.forEach(Runnable::run);
                 }
                 case SERVER -> {
                     this.serverConfigValueCallbacks.forEach(Runnable::run);
                     // call this before running callbacks, so they may use the config already
-                    this.makeServerAvailable();
+                    this.makeServerAvailable(config);
                     this.serverCallbacks.forEach(Runnable::run);
                 }
             }
@@ -195,9 +195,10 @@ public class ConfigHolderImpl<C extends AbstractConfig, S extends AbstractConfig
 
     /**
      * tries to set client loading stage to {@link ConfigLoadingStage#AVAILABLE}
+     * @param modConfig the mod config object to check, do not use global field as it might not have been set yet since the loading event is called inside the ModConfig constructor on Fabric
      */
-    private void makeClientAvailable() {
-        ConfigLoadingStage currentLoadingStage = this.currentLoadingStage(this.client, this.clientModConfig);
+    private void makeClientAvailable(@Nullable ModConfig modConfig) {
+        ConfigLoadingStage currentLoadingStage = this.currentLoadingStage(this.client, modConfig);
         if (currentLoadingStage == ConfigLoadingStage.LOADED) {
             currentLoadingStage = ConfigLoadingStage.AVAILABLE;
         }
@@ -206,9 +207,10 @@ public class ConfigHolderImpl<C extends AbstractConfig, S extends AbstractConfig
 
     /**
      * tries to set server loading stage to {@link ConfigLoadingStage#AVAILABLE}
+     * @param modConfig the mod config object to check, do not use global field as it might not have been set yet since the loading event is called inside the ModConfig constructor on Fabric
      */
-    private void makeServerAvailable() {
-        ConfigLoadingStage currentLoadingStage = this.currentLoadingStage(this.server, this.serverModConfig);
+    private void makeServerAvailable(@Nullable ModConfig modConfig) {
+        ConfigLoadingStage currentLoadingStage = this.currentLoadingStage(this.server, modConfig);
         if (currentLoadingStage == ConfigLoadingStage.LOADED) {
             currentLoadingStage = ConfigLoadingStage.AVAILABLE;
         }
