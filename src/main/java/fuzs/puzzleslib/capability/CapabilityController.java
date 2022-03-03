@@ -93,8 +93,9 @@ public class CapabilityController implements EntityComponentInitializer {
      * @param capabilityType interface for this capability
      * @param capabilityFactory capability factory called when attaching to an object
      * @param entityType        entity class to match
-     * @param <C> capability type
+     * @param <T>               entity type
      * @return capability instance from capability manager
+     * @param <C> capability type
      */
     public <T extends Entity, C extends CapabilityComponent> ComponentKey<C> registerEntityCapability(String capabilityKey, Class<C> capabilityType, ComponentFactory<T, C> capabilityFactory, Class<T> entityType) {
         return this.registerCapability(Entity.class, capabilityKey, capabilityType, componentKey -> o -> {

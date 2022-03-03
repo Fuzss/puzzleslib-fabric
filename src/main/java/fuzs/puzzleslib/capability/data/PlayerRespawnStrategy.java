@@ -39,6 +39,7 @@ public class PlayerRespawnStrategy {
 
     /**
      * simple method for converting to api equivalent, much more complex on Forge
+     * @return converted to {@link RespawnCopyStrategy}
      */
     public RespawnCopyStrategy<Component> toComponentStrategy() {
         return this.componentStrategy;
