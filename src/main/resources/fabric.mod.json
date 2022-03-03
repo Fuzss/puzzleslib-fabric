@@ -20,7 +20,6 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "${mainEntryPoint}"
     ],
     "client": [
     ],
@@ -35,11 +34,11 @@
   "depends": {
     "fabricloader": ">=${minFabricVersion}",
     "fabric": ">=${minFabricApiVersion}",
-    "forgeconfigapiport": "*",
+    "forgeconfigapiport": ">=3.2.0",
     "minecraft": ">=${minMinecraftVersion} <${nextMinecraftVersion}",
     "java": ">=17",
-    "cardinal-components-base": "*",
-    "cardinal-components-entity": "*"
+    "cardinal-components-base": ">=4.1.4",
+    "cardinal-components-entity": ">=4.1.4"
   },
 
   "custom": {
