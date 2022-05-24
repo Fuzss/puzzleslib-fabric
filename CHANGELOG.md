@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog].
 
+## [v3.3.4-1.18.2] - 2022-05-24
+### Fixed
+- Prevent crash when externally registering additional config types for a mod
+
 ## [v3.3.1-1.18.2] - 2022-03-03
 ### Fixed
 - Fixed an issue where a wrong config load state would be set
